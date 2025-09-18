@@ -1,0 +1,6 @@
+# SQLite DB を無視
+db.sqlite3
+
+# Python キャッシュを無視
+__pycache__/
+*.pyc

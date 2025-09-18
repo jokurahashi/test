@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>じゃんけんゲーム</title>
+</head>
+<body>
+    <h1>じゃんけんゲーム</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>あなたの手:</label>
+        <select name="hand">
+            <option value="0">グー</option>
+            <option value="1">チョキ</option>
+            <option value="2">パー</option>
+        </select>
+        <label>コンピュータ人数:</label>
+        <input type="number" name="num_cpus" value="{{ num_cpus }}" min="1">
+        <button type="submit">じゃんけん！</button>
+    </form>
+
+    {% if result %}
+        <h2>出した手</h2>
+        <ul>
+        {% for name, hand in result.hands.items %}
+            <li>{{ name }}: {{ hand }}</li>
+        {% endfor %}
+        </ul>
+
+        <p>
+        {% if result.winners %}
+            勝者: {{ result.winners|join:"、" }}
+            {% if "あなた" in result.winners %} → あなたの勝ち！{% else %} → あなたの負け{% endif %}
+        {% else %}
+            {{ result.message }}
+        {% endif %}
+        </p>
+    {% endif %}
+</body>
+</html>
+
+
